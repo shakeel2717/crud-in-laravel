@@ -7,59 +7,88 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::get();
         return view("product.index", compact("products"));
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        return view("product.create");
+        //
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        // storing into database
-        $product = new Product();
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('product.edit', compact("product"));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
         $product->item = $request->item;
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->discount = $request->discount;
         $product->save();
 
-        return redirect()->route('product.index');
+        return redirect()->route("product.index");
     }
 
-
-    public function delete($product)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        $product = Product::find($product);
-        $product->delete();
-
-        return redirect()->route('product.index');
-    }
-
-
-    public function edit($product)
-    {
-        $product = Product::find($product);
-        return view('product.edit',compact("product"));
-    }
-
-
-    public function update(Request $request)
-    {
-        // updatng this record into databsae
-        $product = Product::find($request->product_id);
-        $product->item = $request->item;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->discount = $request->discount;
-        $product->save();
-
-        return redirect()->route('product.index');
+        //
     }
 }

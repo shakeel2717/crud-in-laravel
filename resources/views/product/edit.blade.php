@@ -18,13 +18,13 @@
                         <h2 class="card-title">Edit this Product</h2>
                         <a href="{{ route('product.index') }}" class="btn btn-primary btn-lg">View All Products</a>
                     </div>
-                    <form action="{{ route('product.update') }}" method="POST">
+                    <form action="{{ route('product.update',['product' => $product->id]) }}" method="POST">
+                        @method("PUT")
                         @csrf
                         <div class="form-group">
                             <label for="item">Item</label>
                             <input type="text" name="item" id="item" class="form-control" value="{{ $product->item }}">
                         </div>
-                        <input type="hidden" name="product_id" value="{{$product->id}}">
                         <div class="form-group">
                             <label for="price">Price</label>
                             <input type="text" name="price" id="price" class="form-control" value="{{ $product->price }}">
